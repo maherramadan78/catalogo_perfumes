@@ -24,7 +24,7 @@ a {
 
 .hero {
     position: relative;
-    min-height: 420px;
+    min-height: 310px;
     overflow: hidden;
     color: var(--ink);
     background:
@@ -59,19 +59,17 @@ a {
     background: linear-gradient(180deg, rgba(251, 250, 247, 0), var(--paper));
 }
 
-.hero-grid {
+.hero-inner {
     position: relative;
     z-index: 1;
-    display: grid;
-    grid-template-columns: minmax(0, 1.05fr) minmax(320px, .95fr);
-    gap: clamp(2rem, 5vw, 4rem);
+    display: flex;
     align-items: center;
-    min-height: 430px;
-    padding-block: 3.5rem;
+    min-height: 310px;
+    padding-block: 3.25rem;
 }
 
 .hero-copy {
-    max-width: 690px;
+    max-width: 880px;
 }
 
 .hero-kicker {
@@ -105,92 +103,24 @@ a {
     line-height: 1.6;
 }
 
-.hero-showcase {
-    position: relative;
-    min-height: 330px;
-    display: grid;
-    place-items: center;
+.hero-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .6rem;
+    margin-top: 1.45rem;
 }
 
-.hero-display {
-    position: absolute;
-    inset: 20px 12% 18px;
-    display: grid;
-    place-items: center;
-    background:
-        linear-gradient(180deg, rgba(255, 255, 255, .92), rgba(255, 255, 255, .78)),
-        linear-gradient(135deg, rgba(199, 155, 70, .18), rgba(123, 37, 56, .06));
-    border: 1px solid rgba(199, 155, 70, .32);
-    border-radius: 8px;
-    box-shadow: 0 28px 80px rgba(72, 49, 28, .18);
-}
-
-.hero-display::before {
-    content: "";
-    position: absolute;
-    inset: 16px;
-    border-radius: 8px;
-    border: 1px solid rgba(23, 19, 19, .08);
-}
-
-.hero-display::after {
-    content: "";
-    position: absolute;
-    left: 22%;
-    right: 22%;
-    bottom: 42px;
-    height: 20px;
-    border-radius: 999px;
-    background: rgba(45, 31, 24, .16);
-    filter: blur(10px);
-}
-
-.hero-bottle {
-    position: relative;
-    z-index: 1;
-    display: block;
-    object-fit: contain;
-}
-
-.hero-bottle-main {
-    width: min(260px, 62%);
-    aspect-ratio: 1 / 1.18;
-    padding: .4rem;
-}
-
-.hero-note {
-    position: absolute;
-    z-index: 2;
-    display: grid;
-    gap: .15rem;
-    min-width: 150px;
-    padding: .85rem 1rem;
-    background: rgba(255, 255, 255, .86);
-    border: 1px solid rgba(199, 155, 70, .32);
-    border-radius: 8px;
-    box-shadow: 0 16px 36px rgba(72, 49, 28, .14);
-}
-
-.hero-note span {
-    color: var(--muted);
-    font-size: .76rem;
-    font-weight: 800;
-    text-transform: uppercase;
-}
-
-.hero-note strong {
+.hero-tags span {
+    display: inline-flex;
+    align-items: center;
+    min-height: 36px;
+    padding: .45rem .8rem;
     color: var(--ink);
-    font-size: .98rem;
-}
-
-.hero-note-top {
-    top: 34px;
-    left: 2%;
-}
-
-.hero-note-bottom {
-    right: 3%;
-    bottom: 34px;
+    background: rgba(255, 255, 255, .76);
+    border: 1px solid rgba(199, 155, 70, .34);
+    border-radius: 999px;
+    font-size: .86rem;
+    font-weight: 800;
 }
 
 .catalog-nav {
@@ -550,23 +480,9 @@ a {
 }
 
 @media (max-width: 991.98px) {
-    .hero-grid {
-        grid-template-columns: 1fr;
-        min-height: auto;
-        padding-block: 3rem 2.25rem;
-    }
-
-    .hero-showcase {
-        min-height: 260px;
-        max-width: 520px;
-    }
-
-    .hero-display {
-        inset: 18px 10% 16px;
-    }
-
-    .hero-bottle-main {
-        width: min(230px, 56%);
+    .hero-inner {
+        min-height: 290px;
+        padding-block: 2.75rem;
     }
 
     .catalog-nav .container {
@@ -601,43 +517,25 @@ a {
 
 @media (max-width: 575.98px) {
     .hero {
-        min-height: 540px;
+        min-height: 360px;
     }
 
-    .hero-grid {
-        gap: 1rem;
-        padding-block: 2.4rem 1rem;
+    .hero-inner {
+        min-height: 360px;
+        padding-block: 2.4rem;
     }
 
     .hero h1 {
         font-size: clamp(2.1rem, 12vw, 3.4rem);
     }
 
-    .hero-showcase {
-        min-height: 220px;
+    .hero-tags {
+        gap: .45rem;
     }
 
-    .hero-display {
-        inset: 16px 0 10px;
-    }
-
-    .hero-bottle-main {
-        width: min(190px, 58%);
-    }
-
-    .hero-note {
-        min-width: 126px;
-        padding: .65rem .75rem;
-    }
-
-    .hero-note-top {
-        top: 6px;
-        left: 0;
-    }
-
-    .hero-note-bottom {
-        right: 0;
-        bottom: 4px;
+    .hero-tags span {
+        min-height: 32px;
+        padding: .35rem .65rem;
     }
 
     .brand-lockup small {
