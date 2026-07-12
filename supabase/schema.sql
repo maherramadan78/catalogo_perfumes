@@ -1,12 +1,85 @@
 begin;
 
+create table if not exists public.catalog_admins (
+    email text primary key,
+    role text not null default 'product_admin' check (role in ('owner', 'product_admin')),
+    activo boolean not null default true,
+    created_at timestamptz not null default now(),
+    updated_at timestamptz not null default now()
+);
+
 create or replace function public.is_catalog_admin()
 returns boolean
 language sql
 stable
+security definer
+set search_path = public
 as $$
-    select lower(coalesce(auth.jwt() ->> 'email', '')) = 'arezlebnen_2017_admin@gmail.com';
+    select exists (
+        select 1
+        from public.catalog_admins
+        where lower(email) = lower(coalesce(auth.jwt() ->> 'email', ''))
+          and activo = true
+          and role in ('owner', 'product_admin')
+    );
 $$;
+
+create or replace function public.is_catalog_owner()
+returns boolean
+language sql
+stable
+security definer
+set search_path = public
+as $$
+    select exists (
+        select 1
+        from public.catalog_admins
+        where lower(email) = lower(coalesce(auth.jwt() ->> 'email', ''))
+          and activo = true
+          and role = 'owner'
+    );
+$$;
+
+create or replace function public.current_catalog_role()
+returns text
+language sql
+stable
+security definer
+set search_path = public
+as $$
+    select role
+    from public.catalog_admins
+    where lower(email) = lower(coalesce(auth.jwt() ->> 'email', ''))
+      and activo = true
+    limit 1;
+$$;
+
+alter table public.catalog_admins enable row level security;
+
+drop policy if exists "Owners can read catalog admins" on public.catalog_admins;
+drop policy if exists "Owners can manage catalog admins" on public.catalog_admins;
+
+create policy "Owners can read catalog admins"
+on public.catalog_admins
+for select
+to authenticated
+using (public.is_catalog_owner());
+
+create policy "Owners can manage catalog admins"
+on public.catalog_admins
+for all
+to authenticated
+using (public.is_catalog_owner())
+with check (public.is_catalog_owner());
+
+insert into public.catalog_admins (email, role, activo)
+values ('arezlebnen_2017_admin@gmail.com', 'owner', true)
+on conflict (email) do update set
+    role = excluded.role,
+    activo = excluded.activo,
+    updated_at = now();
+
+grant execute on function public.current_catalog_role() to authenticated;
 
 create table if not exists public.productos (
     id text primary key,
@@ -28,9 +101,15 @@ create table if not exists public.productos (
 
 alter table public.productos enable row level security;
 
+grant select on public.productos to anon, authenticated;
+grant insert, update on public.productos to authenticated;
+
 drop policy if exists "Public can read menudeo active products" on public.productos;
 drop policy if exists "Wholesale users can read active wholesale products" on public.productos;
 drop policy if exists "Admin can manage products" on public.productos;
+drop policy if exists "Admins can read all products" on public.productos;
+drop policy if exists "Admins can insert products" on public.productos;
+drop policy if exists "Admins can update products" on public.productos;
 
 create policy "Public can read menudeo active products"
 on public.productos
@@ -44,9 +123,21 @@ for select
 to authenticated
 using (activo_mayoreo = true);
 
-create policy "Admin can manage products"
+create policy "Admins can read all products"
 on public.productos
-for all
+for select
+to authenticated
+using (public.is_catalog_admin());
+
+create policy "Admins can insert products"
+on public.productos
+for insert
+to authenticated
+with check (public.is_catalog_admin());
+
+create policy "Admins can update products"
+on public.productos
+for update
 to authenticated
 using (public.is_catalog_admin())
 with check (public.is_catalog_admin());
@@ -87,12 +178,6 @@ for update
 to authenticated
 using (bucket_id = 'productos' and public.is_catalog_admin())
 with check (bucket_id = 'productos' and public.is_catalog_admin());
-
-create policy "Admin can delete product images"
-on storage.objects
-for delete
-to authenticated
-using (bucket_id = 'productos' and public.is_catalog_admin());
 
 insert into public.productos (
     id,

@@ -89,7 +89,7 @@
 
         const actual = correoActual() || 'sin sesion';
         const permitido = adminEmail || 'no configurado';
-        return `No se pudo ${accion}. Supabase te reconoce como ${actual}. El admin permitido es ${permitido}. Si no son iguales, sal y entra con el correo admin exacto. Si son iguales, revisa que ya corriste supabase/schema.sql.`;
+        return `No se pudo ${accion}. Supabase te reconoce como ${actual}. El admin principal es ${permitido}. Revisa que ese correo exista en Authentication y en la tabla catalog_admins.`;
     }
 
     function escapeHtml(valor) {
@@ -366,14 +366,6 @@
 
         const email = document.getElementById('adminEmail').value.trim().toLowerCase();
 
-        if (!adminEmail || email !== adminEmail) {
-            loginError.textContent = 'Este correo no tiene permiso de admin. Usa solo el correo admin autorizado.';
-            loginError.classList.remove('d-none');
-            document.getElementById('adminPassword').value = '';
-            await supabaseClient.auth.signOut();
-            return;
-        }
-
         const { error } = await supabaseClient.auth.signInWithPassword({
             email,
             password: document.getElementById('adminPassword').value
@@ -385,6 +377,12 @@
         }
     });
 
+    async function rolAdminActual() {
+        const { data, error } = await supabaseClient.rpc('current_catalog_role');
+        if (error) throw error;
+        return data || '';
+    }
+
     async function mostrarSesion(session) {
         actualizarCorreos(session);
 
@@ -395,7 +393,19 @@
             return;
         }
 
-        if (adminEmail && String(session.user.email || '').toLowerCase() !== adminEmail) {
+        let rol = '';
+        try {
+            rol = await rolAdminActual();
+        } catch (err) {
+            adminLogin.classList.remove('d-none');
+            adminPanel.classList.add('d-none');
+            btnSalir.classList.add('d-none');
+            loginError.textContent = 'No se pudo verificar permisos de admin. Revisa que ya corriste supabase/schema.sql.';
+            loginError.classList.remove('d-none');
+            return;
+        }
+
+        if (!rol) {
             adminLogin.classList.remove('d-none');
             adminPanel.classList.add('d-none');
             btnSalir.classList.add('d-none');

@@ -32,6 +32,23 @@ Clientes mayoreo:
 - Crea un usuario por cliente con su email.
 - Esos usuarios solo pueden ver mayoreo y hacer pedido.
 
+Admin de productos:
+
+- Crea el usuario en **Authentication > Users**.
+- No lo agregues como miembro del proyecto Supabase.
+- Luego autoriza su correo con SQL:
+
+```sql
+insert into public.catalog_admins (email, role, activo)
+values ('correo-del-admin@ejemplo.com', 'product_admin', true)
+on conflict (email) do update set
+    role = excluded.role,
+    activo = excluded.activo,
+    updated_at = now();
+```
+
+El rol `product_admin` puede entrar al panel del catalogo para agregar y editar productos, precios de menudeo, precios de mayoreo, stock y fotos. No necesita acceso al dashboard de Supabase.
+
 ## 3. Configurar el catalogo
 
 En Supabase ve a **Project Settings > API**.
