@@ -1,0 +1,7 @@
+[build]
+  publish = "supabase-public"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Cache-Control = "no-cache"
