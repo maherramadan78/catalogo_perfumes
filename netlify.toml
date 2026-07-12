@@ -1,6 +1,21 @@
 [build]
   publish = "supabase-public"
 
+[[redirects]]
+  from = "/menudeo"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/mayoreo"
+  to = "/mayoreo.html"
+  status = 200
+
+[[redirects]]
+  from = "/admin"
+  to = "/admin.html"
+  status = 200
+
 [[headers]]
   for = "/*"
   [headers.values]

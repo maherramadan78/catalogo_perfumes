@@ -4,7 +4,7 @@ window.SUPABASE_CONFIG = {
 };
 
 window.CATALOGO_CONFIG = {
-    whatsappNumero: '5210000000000',
+    whatsappNumero: '5218341422227',
     moneda: 'MXN',
     adminEmail: 'arezlebnen_2017_admin@gmail.com'
 };
