@@ -1,6 +1,6 @@
 window.SUPABASE_CONFIG = {
-    url: 'PEGA_AQUI_PROJECT_URL',
-    anonKey: 'PEGA_AQUI_ANON_PUBLIC_KEY'
+    url: 'https://bbiesylonfiuynnceagi.supabase.co',
+    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJiaWVzeWxvbmZpdXlubmNlYWdpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM4MjM3NDksImV4cCI6MjA5OTM5OTc0OX0.QLIiPM7dh5rCV_70d60UbAu2tuGzRj68GMandlMPGyk'
 };
 
 window.CATALOGO_CONFIG = {
