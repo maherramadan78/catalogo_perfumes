@@ -1,6 +1,5 @@
 .agents/
 .codex/
-.firebase/
 
 *.log
 .env
@@ -9,7 +8,6 @@ node_modules/
 vendor/
 
 config.php
-firebase-debug.log
 
 /uploads/*
 !/uploads/.gitkeep
