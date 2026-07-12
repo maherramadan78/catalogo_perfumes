@@ -9,22 +9,32 @@
     <link rel="stylesheet" href="assets/style.css">
 </head>
 <body data-catalogo="menudeo">
-<header class="hero py-5">
-    <div class="container text-center">
-        <span class="badge rounded-pill text-bg-warning mb-3">Catalogo menudeo</span>
-        <h1 class="display-5 fw-bold">Perfumes que dejan huella</h1>
-        <p class="lead mb-0">Elige tus favoritos y envia tu pedido por WhatsApp.</p>
+<header class="hero hero-menudeo">
+    <div class="container hero-grid">
+        <div class="hero-copy">
+            <span class="hero-kicker">Catalogo menudeo</span>
+            <h1>Perfumes arabes y de diseñador para todos los dias</h1>
+            <p>Explora fragancias intensas, frescas y dulces con compra directa por WhatsApp.</p>
+        </div>
+        <div class="hero-showcase" aria-label="Perfumes destacados">
+            <img class="hero-bottle hero-bottle-main" src="uploads/20260712024136-5c80de67.jpg" alt="Perfume Asad Lattafa">
+            <img class="hero-bottle hero-bottle-side hero-bottle-top" src="uploads/20260712022426-e440b30d.jpg" alt="Perfume 9 PM Afnan">
+            <img class="hero-bottle hero-bottle-side hero-bottle-bottom" src="uploads/20260712022522-41dc0539.jpg" alt="Perfume Yara Lattafa">
+        </div>
     </div>
 </header>
 
-<nav class="navbar sticky-top bg-body border-bottom shadow-sm">
+<nav class="navbar sticky-top catalog-nav">
     <div class="container py-2 gap-2">
-        <a class="navbar-brand fw-bold" href="index.html">Mi Perfumeria</a>
+        <a class="navbar-brand brand-lockup" href="index.html">
+            <span>Mi Perfumeria</span>
+            <small>Catalogo digital</small>
+        </a>
         <div class="catalog-actions d-flex flex-grow-1 justify-content-end gap-2">
             <input id="buscador" class="form-control buscador" type="search" placeholder="Buscar perfume o marca">
-            <a class="btn btn-outline-success d-none d-md-inline-flex" href="mayoreo.html">Mayoreo</a>
-            <a class="btn btn-outline-secondary" href="admin.html">Admin</a>
-            <button class="btn btn-dark position-relative" type="button" data-bs-toggle="offcanvas" data-bs-target="#carritoCanvas">
+            <a class="btn btn-outline-accent d-none d-md-inline-flex" href="mayoreo.html">Mayoreo</a>
+            <a class="btn btn-soft" href="admin.html">Admin</a>
+            <button class="btn btn-primary-dark position-relative" type="button" data-bs-toggle="offcanvas" data-bs-target="#carritoCanvas">
                 Carrito
                 <span id="contadorCarrito" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
             </button>
@@ -32,7 +42,7 @@
     </div>
 </nav>
 
-<main class="container py-5">
+<main class="container catalog-main">
     <div id="estadoCatalogo" class="alert alert-info">Cargando catalogo...</div>
     <div id="listaPerfumes" class="row g-4"></div>
 </main>

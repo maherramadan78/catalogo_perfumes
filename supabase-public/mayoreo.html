@@ -9,22 +9,32 @@
     <link rel="stylesheet" href="assets/style.css">
 </head>
 <body class="mayoreo-body" data-catalogo="mayoreo">
-<header class="hero hero-mayoreo py-5">
-    <div class="container text-center">
-        <span class="badge rounded-pill text-bg-success mb-3">Catalogo mayoreo</span>
-        <h1 class="display-5 fw-bold">Precios especiales para clientes mayoristas</h1>
-        <p class="lead mb-0">Acceso con usuario de cliente mayorista.</p>
+<header class="hero hero-mayoreo">
+    <div class="container hero-grid">
+        <div class="hero-copy">
+            <span class="hero-kicker">Catalogo mayoreo</span>
+            <h1>Precios especiales para clientes mayoristas</h1>
+            <p>Acceso privado para revisar inventario, minimos y precios preferenciales.</p>
+        </div>
+        <div class="hero-showcase" aria-label="Perfumes de mayoreo">
+            <img class="hero-bottle hero-bottle-main" src="uploads/20260712024529-de289061.jpg" alt="Club de Nuit Iconic">
+            <img class="hero-bottle hero-bottle-side hero-bottle-top" src="uploads/20260712022452-48de617b.jpg" alt="Club de Nuit Intense">
+            <img class="hero-bottle hero-bottle-side hero-bottle-bottom" src="uploads/20260712022612-00af05b2.jpg" alt="Yara roja Lattafa">
+        </div>
     </div>
 </header>
 
-<nav class="navbar sticky-top bg-body border-bottom shadow-sm">
+<nav class="navbar sticky-top catalog-nav">
     <div class="container py-2 gap-2">
-        <a class="navbar-brand fw-bold" href="index.html">Mi Perfumeria</a>
+        <a class="navbar-brand brand-lockup" href="index.html">
+            <span>Mi Perfumeria</span>
+            <small>Mayoreo</small>
+        </a>
         <div class="catalog-actions d-flex flex-grow-1 justify-content-end gap-2">
             <input id="buscador" class="form-control buscador d-none" type="search" placeholder="Buscar perfume o marca">
-            <a class="btn btn-outline-dark d-none d-md-inline-flex" href="index.html">Menudeo</a>
-            <a class="btn btn-outline-secondary" href="admin.html">Admin</a>
-            <button id="btnSalir" class="btn btn-outline-secondary d-none" type="button">Salir</button>
+            <a class="btn btn-outline-accent d-none d-md-inline-flex" href="index.html">Menudeo</a>
+            <a class="btn btn-soft" href="admin.html">Admin</a>
+            <button id="btnSalir" class="btn btn-soft d-none" type="button">Salir</button>
             <button id="btnCarrito" class="btn btn-success position-relative d-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#carritoCanvas">
                 Carrito
                 <span id="contadorCarrito" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
@@ -33,7 +43,7 @@
     </div>
 </nav>
 
-<main class="container py-5">
+<main class="container catalog-main">
     <section id="panelLogin" class="admin-login mx-auto">
         <h1 class="h3 mb-3">Entrar a mayoreo</h1>
         <p class="text-secondary">Usa el email y contrasena que te dio la tienda.</p>
